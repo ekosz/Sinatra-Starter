@@ -26,17 +26,13 @@ class MyApp < Sinatra::Base
     include Rack::Utils
     alias_method :h, :escape_html
   end
+
+  get '/stylesheets/:name.css' do
+    content_type 'text/css', :charset => 'utf-8'
+    scss "stylesheets/#{params[:name]}".to_sym
+  end
 end
 
 require_relative 'app/models/init'
 require_relative 'app/helpers/init'
 require_relative 'app/routes/init'
-
-#get '/' do
-#  "Hello World"
-#end
-
-get '/stylesheets/:name.css' do
-  content_type 'text/css', :charset => 'utf-8'
-  scss "stylesheets/#{params[:name]}".to_sym
-end
